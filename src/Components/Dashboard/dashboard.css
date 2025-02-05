@@ -1,0 +1,122 @@
+.body {
+  background: url("../../assets/background/download.gif");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dificultyContainer {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.dificultyContainer h1 {
+  font-family: "Press Start 2P", serif;
+  font-weight: 500;
+  color: white;
+  font-size: larger;
+  line-height: 1.6;
+}
+
+.dificulty-list {
+  font-family: "Poppins", sans-serif;
+  font-size: large;
+  font-weight: 500;
+  width: 100%;
+}
+
+.dificulty-list-item {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-image: linear-gradient(
+    120deg,
+    rgba(98, 52, 234, 0.6),
+    rgba(252, 186, 242, 0.7)
+  );
+
+  border: none;
+  cursor: pointer;
+}
+
+.dificulty-list-item:hover,
+.dificulty-list-item:focus,
+.dificulty-list-item:active,
+.dificulty-list-item.selected {
+  background: linear-gradient(
+    120deg,
+    rgba(98, 52, 234, 0.9),
+    rgba(252, 186, 242, 0.7)
+  );
+  scale: 1.08;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.25);
+}
+
+.language-button-select {
+  font-family: "Poppins", serif !important;
+  font-weight: 500;
+  box-shadow: 0 4px 4px rgba(74, 8, 107, 0.5) !important;
+}
+
+.language-button-select:hover {
+  background-color: rgb(42, 2, 160) !important;
+
+  border: none;
+  scale: 1.05;
+}
+
+.language-paragraph {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 0.7;
+}
+
+.custom-button {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+  width: max-content;
+  position: relative;
+  overflow: hidden;
+  color: white !important;
+  background: linear-gradient(90deg, #000000, #0aa2d5);
+  background-size: 200% 200%;
+  border: none;
+  transition: all 0.3s ease;
+
+  @media (max-width: 767px) {
+  }
+
+  @media (min-width: 768px) {
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    animation: gradientAnimation 3s ease infinite;
+  }
+}
+
+@media (min-width: 780px) {
+  .dificulty-list {
+    width: 75%;
+  }
+  .custom-button {
+    font-size: 1.1rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .custom-button {
+    font-size: 1.3rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dificulty-list {
+    width: 50%;
+  }
+
+  .dificultyContainer h1 {
+    font-size: x-large;
+  }
+}
