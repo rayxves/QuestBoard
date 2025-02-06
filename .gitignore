@@ -1,5 +1,8 @@
 
-/node_modules
+api/node_modules
+api/docker-compose.yml
+api/config/config.json
+frontend/node_modules
 /.pnp
 .pnp.js
 
@@ -24,8 +27,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Docker
-docker-compose.yml
 
 # Miscellaneous
 .DS_Store
