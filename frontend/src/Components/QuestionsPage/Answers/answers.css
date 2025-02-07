@@ -1,0 +1,45 @@
+.answer_container {
+  background: transparent;
+  height: auto;
+  width: 90%;
+}
+
+.button-container {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.button-container:hover,
+.button-container:active,
+.button-container:focus {
+  background-color: rgba(225, 52, 255, 0.1);
+  scale: 1.05;
+}
+
+.correct {
+  background-color: rgba(0, 130, 0, 0.5);
+  font-weight: 600;
+}
+
+.incorrect {
+  background-color: rgba(213, 0, 0, 0.5);
+}
+
+.button-container.correct:hover,
+.button-container.correct:active,
+.button-container.correct:focus {
+  background-color: rgba(0, 130, 0, 0.5);
+}
+
+.button-container.incorrect:hover,
+.button-container.incorrect:active,
+.button-container.incorrect:focus {
+  background-color: rgba(213, 0, 0, 0.5);
+}
+
+.button.btn {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}

@@ -1,0 +1,17 @@
+.body {
+  background: url("../../assets/background/Moon\ \(1\).svg");
+  background-size: cover;
+  background-position: center;
+  height: auto;
+}
+
+.question_container {
+  background: rgba(255, 255, 255, 0.7);
+  height: auto !important;
+}
+
+.question {
+  font-size: large;
+  font-weight: 500;
+  border-bottom: 1px solid black;
+}

@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "strictPropertyInitialization": false,
-    "target": "ES6",
-    "module": "CommonJS",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "src/*"]
+    },
+    "module": "ESNext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "types": ["node"]
+    "target": "ESNext",
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   }
 }

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import "./home.css";
+
 export default function Home() {
   return (
-    <div className="d-flex justify-content-center align-items-center text-center body">
+    <div className="d-flex justify-content-center align-items-center text-center body_home">
       <header>
         <div className="p-3 titulo-container">
           <h1 className="m-3 p-2 titulo">

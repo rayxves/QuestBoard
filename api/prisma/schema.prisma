@@ -20,6 +20,7 @@ model Question {
   category      String
   question      String
   correct_answer String
+  incorrect_answers String[] @default([])
 
   @@map("questions")  
 }

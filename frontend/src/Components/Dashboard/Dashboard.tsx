@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [type, setType] = useState("");
 
   return (
-    <div className="d-flex justify-content-center align-items-center text-center flex-column gap-3 body">
+    <div className="d-flex justify-content-center align-items-center text-center flex-column gap-3 body_home">
       <div className="w-50 h-60 p-5 rounded d-flex justify-content-center align-items-center text-center flex-column gap-2 dificultyContainer">
         <h1>Nível de dificuldade:</h1>
         <div className="w-100 d-flex justify-content-center align-items-center text-center flex-column">
@@ -76,7 +76,7 @@ export default function Dashboard() {
         )}
       </div>
 
-      <Link to="/dashboard" className="btn btn-primary custom-button">
+      <Link to="/question-page" className="btn btn-primary custom-button">
         Press Start
       </Link>
     </div>

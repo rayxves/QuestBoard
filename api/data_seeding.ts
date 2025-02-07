@@ -9,6 +9,7 @@ async function seedDatabase() {
       difficulty: q.difficulty,
       question: q.question,
       correct_answer: q.correct_answer,
+      incorrect_answers: q.incorrect_answers,
     }));
     const result = await axios.post(
       "http://localhost:5000/seed-questions",
