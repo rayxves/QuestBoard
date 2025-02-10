@@ -1,59 +1,37 @@
-import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import express from "express";
+import { PrismaClient } from "@prisma/client";
+import he from "he";
 
 const app = express();
 const prisma = new PrismaClient();
 
-app.get('/', async (req, res) => {
-    try {
-        const questions = await prisma.question.findMany();
-        res.json(questions);
-    } catch (error) {
-        console.error('Erro ao buscar questões:', error);
-        res.status(500).json({ message: 'Erro ao buscar questões' });
-    }
-});
+app.get("/", async (req, res) => {
+  try {
+    const { difficulty, type } = req.query;
 
-app.get('/difficulty=:difficulty', async (req, res) => {
-    try {
-        const { difficulty } = req.params;
+    const filters: any = {};
+    if (difficulty && difficulty !== "whatever")
+      filters.difficulty = difficulty;
+    if (type) filters.type = type;
 
-        if (!difficulty) {
-            return res.status(400).json({ message: 'Parâmetro "difficulty" não fornecido!' });
-        }
+    const questions = await prisma.question.findMany({
+      where: filters,
+    });
 
-        const questions = await prisma.question.findMany({
-            where: {
-                difficulty: difficulty,
-            },
-        });
+    const decodedQuestions = questions.map((question) => {
+      return {
+        ...question,
+        question: he.decode(question.question),
+      };
+    });
 
-        res.json(questions);
-    } catch (error) {
-        console.error('Erro ao buscar questões:', error);
-        res.status(500).json({ message: 'Erro ao buscar questões' });
-    }
-});
+    const shuffledQuestions = decodedQuestions.sort(() => Math.random() - 0.5);
 
-app.get('/type=:type', async (req, res) => {
-    try {
-        const { type } = req.params;
-
-        if (!type) {
-            return res.status(400).json({ message: 'Parâmetro "type" não fornecido!' });
-        }
-
-        const questions = await prisma.question.findMany({
-            where: {
-                type: type,
-            },
-        });
-
-        res.json(questions);
-    } catch (error) {
-        console.error('Erro ao buscar questões:', error);
-        res.status(500).json({ message: 'Erro ao buscar questões' });
-    }
+    res.json(shuffledQuestions.slice(0, 10));
+  } catch (error) {
+    console.error("Erro ao buscar questões:", error);
+    res.status(500).json({ message: "Erro ao buscar questões" });
+  }
 });
 
 export default app;
