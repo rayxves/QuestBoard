@@ -65,6 +65,18 @@
   border: none;
   scale: 1.05;
 }
+.type-button-select-secondary {
+  font-family: "Poppins", serif !important;
+  font-weight: 500;
+  box-shadow: 0 4px 4px rgba(74, 8, 107, 0.5) !important;
+}
+
+.type-button-select-secondary:hover {
+  background-color: rgb(124, 124, 124) !important;
+
+  border: none;
+  scale: 1.05;
+}
 
 .language-paragraph {
   font-family: "Poppins", sans-serif;
@@ -73,6 +85,7 @@
 }
 
 .custom-button {
+  font-family: "Poppins", sans-serif !important;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
   width: max-content;
   position: relative;
@@ -82,18 +95,11 @@
   background-size: 200% 200%;
   border: none;
   transition: all 0.3s ease;
-
-  @media (max-width: 767px) {
-  }
-
-  @media (min-width: 768px) {
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    animation: gradientAnimation 3s ease infinite;
-  }
+}
+.custom-button:hover,
+.custom-button:active,
+.custom-button:focus {
+  animation: gradientAnimation 3s ease infinite;
 }
 
 @media (min-width: 780px) {

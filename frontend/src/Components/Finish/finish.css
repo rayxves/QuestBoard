@@ -1,0 +1,19 @@
+.finish-body {
+  background: url("../../assets/background/download.gif");
+  background-size: cover;
+}
+
+.finish-container {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.h1 {
+  font-family: "Press start 2P", sans-serif;
+  font-size: x-large;
+  border-bottom: 1px solid black;
+}
+
+.p {
+  font-family: "Poppins", sans-serif;
+  font-size: x-large;
+}

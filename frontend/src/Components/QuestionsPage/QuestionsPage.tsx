@@ -2,11 +2,19 @@ import { useState, useEffect } from "react";
 import Answers from "./Answers/Answers";
 import "./question-page.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-async function getAnswers() {
-  const url = "http://localhost:5000/questions";
+async function getAnswers(difficulty: string, type: string) {
+  let url = "http://localhost:5000/questions";
+  const queryParams: string[] = [];
 
+  if (difficulty !== "" && difficulty !== "whatever")
+    queryParams.push(`difficulty=${difficulty}`);
+  if (type !== "" && type !== "any") queryParams.push(`type=${type}`);
+
+  if (queryParams.length) {
+    url += `?${queryParams.join("&")}`;
+  }
   try {
     const response = await axios.get(url);
     if (response.status === 200) {
@@ -23,6 +31,7 @@ async function getAnswers() {
 const shuffleArray = (array: string[]) => {
   return array.slice().sort(() => Math.random() - 0.5);
 };
+
 export default function QuestionsPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState<any[]>([]);
@@ -30,13 +39,18 @@ export default function QuestionsPage() {
   const [error, setError] = useState<string | null>(null);
   const [resetAnswers, setResetAnswers] = useState(false);
   const [countCorrectAnswer, setCountCorrectAnswer] = useState(0);
+  const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([]);
+  const [correctAnswer, setCorrectAnswer] = useState<string | null>(null); // Variável de estado para armazenar a resposta correta
 
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const { difficulty, type } = location.state || {};
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const data = await getAnswers();
+        const data = await getAnswers(difficulty, type);
         setQuestions(data);
       } catch (err: any) {
         setError(err.message);
@@ -52,16 +66,20 @@ export default function QuestionsPage() {
     if (resetAnswers) {
       setResetAnswers(false);
     }
-  }, [currentQuestion, resetAnswers]);
+
+    if (questions.length > 0 && questions[currentQuestion]) {
+      const correct = questions[currentQuestion].correct_answer;
+      const answers = [
+        correct,
+        ...questions[currentQuestion].incorrect_answers,
+      ];
+      setCorrectAnswer(correct); 
+      setShuffledAnswers(shuffleArray(answers));
+    }
+  }, [currentQuestion, resetAnswers, questions]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
-  const correctAnswer = questions[currentQuestion].correct_answer;
-  const answers = shuffleArray([
-    correctAnswer,
-    ...questions[currentQuestion].incorrect_answers,
-  ]);
 
   const setDashboardPage = () => {
     navigate("/dashboard");
@@ -84,12 +102,14 @@ export default function QuestionsPage() {
   };
 
   const handleFinishQuiz = () => {
-    navigate("/finish", { state: { score: countCorrectAnswer } });
+    navigate("/finish", {
+      state: { score: countCorrectAnswer, questions: questions.length },
+    });
   };
 
   return (
     <div className="d-flex justify-content-center align-items-center flex-column w-100 h-100 body ">
-      <div className="d-flex flex-column gap-3 w-75 p-3 rounded question_container">
+      <div className="d-flex flex-column gap-3 p-3 rounded question_container">
         <button
           type="button"
           className="btn-close"
@@ -99,13 +119,16 @@ export default function QuestionsPage() {
         <span className="pb-3 question">
           {questions[currentQuestion].question}
         </span>
-        <Answers
-          model={questions[currentQuestion].type}
-          answers={answers}
-          correct_answer={correctAnswer}
-          reset={resetAnswers}
-          onAnswerCorrect={() => setCountCorrectAnswer(countCorrectAnswer + 1)}
-        />
+        {/* Passando a variável correctAnswer como prop para o componente Answers */}
+        {correctAnswer && (
+          <Answers
+            model={questions[currentQuestion].type}
+            answers={shuffledAnswers}
+            correct_answer={correctAnswer}
+            reset={resetAnswers}
+            onAnswerCorrect={() => setCountCorrectAnswer(countCorrectAnswer + 1)}
+          />
+        )}
         <div className="w-100 px-4 py-2 d-flex justify-content-between">
           <button
             type="button"

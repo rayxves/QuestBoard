@@ -43,3 +43,11 @@
   box-shadow: none !important;
   border: 0 !important;
 }
+
+@media (min-width: 968px) {
+  .answer_container {
+    width: 70%;
+  }
+
+
+}

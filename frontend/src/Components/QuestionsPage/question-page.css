@@ -8,10 +8,17 @@
 .question_container {
   background: rgba(255, 255, 255, 0.7);
   height: auto !important;
+  width: 75% !important;
 }
 
 .question {
   font-size: large;
   font-weight: 500;
   border-bottom: 1px solid black;
+}
+
+@media (min-width: 968px) {
+  .question_container {
+    width: 60% !important;
+  }
 }

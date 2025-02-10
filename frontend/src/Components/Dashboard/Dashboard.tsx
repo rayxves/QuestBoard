@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./dashboard.css";
 import ListItem from "./ListItem/ListItem";
@@ -7,6 +7,11 @@ export default function Dashboard() {
   const [difficulty, setDifficulty] = useState("");
   const [languages, setLanguages] = useState("");
   const [type, setType] = useState("");
+  const navigate = useNavigate();
+
+  const handleStart = () => {
+    navigate("/question-page", { state: { difficulty, type } });
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center text-center flex-column gap-3 body_home">
@@ -18,15 +23,19 @@ export default function Dashboard() {
               <ListItem
                 key={level}
                 text={level}
-                isSelected={difficulty === level}
-                onClick={() => setDifficulty(level)}
+                isSelected={difficulty === level.toLowerCase()}
+                onClick={() => setDifficulty(level.toLowerCase())}
               />
             ))}
           </ul>
         </div>
 
         <div className="btn-group dropend">
-          <button className="btn btn-primary p-2 language-button-select" type="button" data-bs-toggle="dropdown">
+          <button
+            className="btn btn-primary p-2 language-button-select"
+            type="button"
+            data-bs-toggle="dropdown"
+          >
             Selecione um Idioma
           </button>
           <ul className="dropdown-menu">
@@ -42,7 +51,10 @@ export default function Dashboard() {
               { code: "ru", label: "🇷🇺 Русский (Russo)" },
             ].map(({ code, label }) => (
               <li key={code}>
-                <button className="dropdown-item" onClick={() => setLanguages(code)}>
+                <button
+                  className="dropdown-item"
+                  onClick={() => setLanguages(code)}
+                >
                   {label}
                 </button>
               </li>
@@ -51,17 +63,24 @@ export default function Dashboard() {
         </div>
 
         <div className="btn-group dropdown">
-          <button className="btn btn-secondary p-2 language-button-select" type="button" data-bs-toggle="dropdown">
+          <button
+            className="btn btn-secondary p-2 type-button-select-secondary"
+            type="button"
+            data-bs-toggle="dropdown"
+          >
             Selecione o tipo
           </button>
           <ul className="dropdown-menu">
             {[
               { value: "any", label: "Any Type" },
               { value: "multiple", label: "Multiple Choice" },
-              { value: "true-false", label: "True / False" },
+              { value: "boolean", label: "True / False" },
             ].map(({ value, label }) => (
               <li key={value}>
-                <button className="dropdown-item" onClick={() => setType(value)}>
+                <button
+                  className="dropdown-item"
+                  onClick={() => setType(value)}
+                >
                   {label}
                 </button>
               </li>
@@ -76,9 +95,9 @@ export default function Dashboard() {
         )}
       </div>
 
-      <Link to="/question-page" className="btn btn-primary custom-button">
+      <button onClick={handleStart} className="btn btn-primary custom-button">
         Press Start
-      </Link>
+      </button>
     </div>
   );
 }

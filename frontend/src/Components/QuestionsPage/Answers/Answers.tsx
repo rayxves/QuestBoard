@@ -41,7 +41,7 @@ export default function Answers({
           {answers.map((answer, index) => (
             <div
               key={index}
-              className={`d-flex flex-column align-items-center justify-content-center button-container 
+              className={`-flex flex-column align-items-center justify-content-center button-container 
                 ${
                   showCorrectAnswer
                     ? answer === correct_answer
@@ -53,7 +53,7 @@ export default function Answers({
                 }`}
             >
               <button
-                className="btn p-2 m-0 button"
+                className="w-100 btn p-2 m-0 button"
                 onClick={() => handleResponseAnswer(answer)}
                 disabled={showCorrectAnswer}
               >
@@ -63,7 +63,7 @@ export default function Answers({
           ))}
         </div>
       ) : (
-        <div className="w-100 d-flex align-items-center gap-3 answer_container">
+        <div className=" d-flex align-items-center gap-3 answer_container">
           {answers.map((answer, index) => (
             <div
               key={index}
@@ -79,7 +79,7 @@ export default function Answers({
                 }`}
             >
               <button
-                className="btn p-2 m-0 button"
+                className="w-100 btn p-2 m-0 button"
                 onClick={() => handleResponseAnswer(answer)}
                 disabled={showCorrectAnswer}
               >
