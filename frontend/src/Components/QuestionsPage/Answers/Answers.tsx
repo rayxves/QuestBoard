@@ -7,6 +7,7 @@ interface Props {
   correct_answer: string;
   reset: boolean;
   onAnswerCorrect: () => void;
+  onAnswer: () => void;
 }
 
 export default function Answers({
@@ -15,6 +16,7 @@ export default function Answers({
   correct_answer,
   reset,
   onAnswerCorrect,
+  onAnswer,
 }: Props) {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
@@ -32,6 +34,7 @@ export default function Answers({
     if (answer === correct_answer) {
       onAnswerCorrect();
     }
+    onAnswer();
   }
 
   return (

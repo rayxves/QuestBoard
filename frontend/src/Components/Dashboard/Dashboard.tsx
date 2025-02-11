@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./dashboard.css";
 import ListItem from "./ListItem/ListItem";
@@ -10,7 +10,11 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate("/question-page", { state: { difficulty, type } });
+    if (!languages) {
+      alert("Por favor, selecione um idioma antes de começar.");
+      return;
+    }
+    navigate("/question-page", { state: { difficulty, type, languages } });
   };
 
   return (
@@ -90,7 +94,17 @@ export default function Dashboard() {
 
         {languages && (
           <p className="language-paragraph p-0 m-0 mt-1">
-            Language: {languages} {type && <span>and type: {type}</span>}
+            Language: {languages}{" "}
+            {type && (
+              <span>
+                and type:{" "}
+                {type === "boolean"
+                  ? "true-false"
+                  : type === "multiple"
+                  ? "multiple"
+                  : "any"}
+              </span>
+            )}
           </p>
         )}
       </div>

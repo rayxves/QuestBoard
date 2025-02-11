@@ -3,6 +3,7 @@ import Home from "./Components/Home/Home";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import QuestionsPage from "./Components/QuestionsPage/QuestionsPage";
 import FinishPage from "./Components/Finish/FinishPage";
+
 function App() {
   return (
     <Router>

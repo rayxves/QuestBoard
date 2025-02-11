@@ -4,8 +4,11 @@ export default function FinishPage() {
   const location = useLocation();
   const score = location.state?.score;
   const questions = location.state?.questions;
-  const percent = (score / questions) * 100;
+  const percent = Math.floor((score / questions) * 100);
   const navigate = useNavigate();
+
+  const progressBarColor =
+    percent >= 80 ? "purple" : percent >= 50 ? "darkblue" : "blue";
 
   return (
     <div className="w-100 h-100 d-flex align-items-center justify-content-center finish-body">
@@ -15,7 +18,13 @@ export default function FinishPage() {
         <div className="w-100 d-flex align-items-center justify-content-center flex-column">
           <p className="p">Você acertou {score} questões!</p>
           <div className="progress w-50" style={{ height: "1.5rem" }}>
-            <div className="progress-bar" style={{ width: `${percent}%` }}>
+            <div
+              className="progress-bar"
+              style={{
+                width: `${percent}%`,
+                backgroundColor: progressBarColor,
+              }}
+            >
               {percent}%
             </div>
           </div>
