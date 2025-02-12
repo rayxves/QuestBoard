@@ -3,11 +3,11 @@ import { PrismaClient } from "@prisma/client";
 import he from "he";
 import { v2 as Translate } from "@google-cloud/translate";
 
-const app = express();
+const router = express.Router();
 const prisma = new PrismaClient();
 const translate = new Translate.Translate({ key: process.env.GOOGLE_API_KEY });
 
-app.get("/", async (req, res) => {
+router.get("/", async (req, res):Promise<any> => {
   try {
     const { difficulty, type, targetLanguage } = req.query;
 
@@ -72,7 +72,6 @@ app.get("/", async (req, res) => {
       () => Math.random() - 0.5
     );
 
-    console.log(shuffledQuestions.slice(0, 1));
     res.json(shuffledQuestions.slice(0, 10));
   } catch (error) {
     console.error("Erro ao buscar questões:", error);
@@ -80,4 +79,4 @@ app.get("/", async (req, res) => {
   }
 });
 
-export default app;
+export default router;

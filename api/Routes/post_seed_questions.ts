@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.post("/", async (req, res) => {
+app.post("/", async (req, res):Promise<any> => {
   try {
     const questions = req.body;
 

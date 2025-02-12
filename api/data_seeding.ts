@@ -3,7 +3,7 @@ import axios from "axios";
 async function seedDatabase() {
   try {
     const response = await axios.get("https://opentdb.com/api.php?amount=50");
-    const questions = response.data.results.map((q) => ({
+    const questions = response.data.results.map((q: any) => ({
       type: q.type,
       category: q.category,
       difficulty: q.difficulty,
