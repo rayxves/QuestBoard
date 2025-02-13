@@ -7,6 +7,7 @@ import path from "path";
 
 const app = express();
 const prisma = new PrismaClient();
+const port = 5000
 
 app.use(
   cors({
@@ -26,4 +27,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
 });
 
+
+app.listen(port, () => {
+  console.log(`API of ${process.env.NODE_ENV} listening at http://localhost:${port}`);
+});
 export default app;
