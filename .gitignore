@@ -10,12 +10,11 @@ frontend/node_modules
 /coverage
 
 
-/build
+
 /dist
 /public
 
 
-frontend/build
 api/build
 
 .env
