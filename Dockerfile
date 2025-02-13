@@ -3,10 +3,13 @@ FROM node:18 AS builder
 
 WORKDIR /app
 
+
 COPY api ./api
 WORKDIR /app/api
 
+
 RUN npm install
+RUN npm install ts-node typescript --save-dev
 
 WORKDIR /app
 COPY frontend ./frontend
@@ -24,4 +27,4 @@ ENV REACT_APP_API_URL=http://localhost:5000
 
 EXPOSE 5000
 
-CMD ["node", "api/index.ts"]
+CMD ["npx", "ts-node", "api/index.ts"]
