@@ -7,7 +7,7 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import LoadingPage from "../Loading/LoadingPage";
 
 async function getAnswers(difficulty: string, type: string, language: string) {
-  let url = "/api/questions";
+  let url = "http://localhost:5000/api/questions";
   const queryParams: string[] = [];
 
   if (difficulty !== "" && difficulty !== "whatever")
