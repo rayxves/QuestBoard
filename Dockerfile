@@ -31,5 +31,6 @@ EXPOSE 3000
 ENV REACT_APP_API_URL=http://localhost:5000
 ENV DATABASE_URL=postgresql://postgres:pkKFsgWnepGozAkHeQAilsqOLcrvGSnL@monorail.proxy.rlwy.net:43147/railway
 
+WORKDIR /app/api
 
 CMD ["npm", "start"]
