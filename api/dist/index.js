@@ -1,30 +1,28 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
-const client_1 = require("@prisma/client");
-const post_seed_questions_1 = __importDefault(require("./Routes/post_seed_questions"));
-const get_questions_1 = __importDefault(require("./Routes/get_questions"));
-const path_1 = __importDefault(require("path"));
-const app = (0, express_1.default)();
-const prisma = new client_1.PrismaClient();
+import express from "express";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
+import post_seed_questions from "./Routes/post_seed_questions.js";
+import get_questions from "./Routes/get_questions.js";
+import path from "path";
+import { fileURLToPath } from "url";
+const app = express();
+const prisma = new PrismaClient();
 const port = 5000;
-app.use((0, cors_1.default)({
+app.use(cors({
     origin: "*",
     methods: "GET,POST,PUT,DELETE",
 }));
-const __dirname = path_1.default.resolve();
-app.use(express_1.default.static(path_1.default.join(__dirname, 'frontend/build')));
-app.use(express_1.default.json());
-app.use("/seed-questions", post_seed_questions_1.default);
-app.use("/questions", get_questions_1.default);
-app.get('*', (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, 'frontend', 'build', 'index.html'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "frontend/build")));
+app.use(express.json());
+app.use(express.json());
+app.use("/seed-questions", post_seed_questions);
+app.use("/questions", get_questions);
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
 });
 app.listen(port, () => {
     console.log(`API of ${process.env.NODE_ENV} listening at http://localhost:${port}`);
 });
-exports.default = app;
+export { app };

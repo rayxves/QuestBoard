@@ -1,24 +1,19 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 
+const router = express.Router();
 const prisma = new PrismaClient();
-const app = express();
 
-app.use(express.json());
-
-app.post("/", async (req, res):Promise<any> => {
+router.post("/", async (req, res):Promise<any> => {
   try {
     const questions = req.body;
 
     if (!Array.isArray(questions)) {
-      return res
-        .status(400)
-        .json({ error: "Invalid data format. Expected array" });
+      return res.status(400).json({ error: "Invalid data format. Expected array" });
     }
 
-    const createdQuestions = await prisma.question.createMany({
-      data: questions,
-    });
+
+    const createdQuestions = await prisma.question.createMany({ data: questions });
     res.json({
       message: "Questions seeded successfully!",
       count: createdQuestions.count,
@@ -29,4 +24,4 @@ app.post("/", async (req, res):Promise<any> => {
   }
 });
 
-export default app;
+export default router;

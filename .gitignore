@@ -1,4 +1,4 @@
-
+/node_modules
 api/node_modules
 docker-compose.yml
 api/config/config.json

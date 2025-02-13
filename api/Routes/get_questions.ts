@@ -1,38 +1,32 @@
-import express from "express";
+import express, { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import he from "he";
 import { v2 as Translate } from "@google-cloud/translate";
 
-const router = express.Router();
+const router = Router();
 const prisma = new PrismaClient();
 const translate = new Translate.Translate({ key: process.env.GOOGLE_API_KEY });
 
-router.get("/", async (req, res):Promise<any> => {
+router.get("/", async (req, res): Promise<any> => {
   try {
     const { difficulty, type, targetLanguage } = req.query;
 
-    if (!targetLanguage)
+    if (!targetLanguage) {
       return res.json({ error: "Target language not specified" });
+    }
 
     const filters: any = {};
-    if (difficulty && difficulty !== "whatever")
-      filters.difficulty = difficulty;
+    if (difficulty && difficulty !== "whatever") filters.difficulty = difficulty;
     if (type) filters.type = type;
 
-    const questions = await prisma.question.findMany({
-      where: filters,
-    });
+    const questions = await prisma.question.findMany({ where: filters });
 
-    const decodedQuestions = questions.map((question) => {
-      return {
-        ...question,
-        question: he.decode(question.question),
-        correct_answer: he.decode(question.correct_answer),
-        incorrect_answers: question.incorrect_answers.map((answer) =>
-          he.decode(answer)
-        ),
-      };
-    });
+    const decodedQuestions = questions.map((question) => ({
+      ...question,
+      question: he.decode(question.question),
+      correct_answer: he.decode(question.correct_answer),
+      incorrect_answers: question.incorrect_answers.map((answer) => he.decode(answer)),
+    }));
 
     const translatedQuestions = await Promise.all(
       decodedQuestions.map(async (question) => {
@@ -48,13 +42,11 @@ router.get("/", async (req, res):Promise<any> => {
 
           const translatedIncorrectAnswers = await Promise.all(
             question.incorrect_answers.map(async (answer) => {
-              const [translatedAnswer] = await translate.translate(
-                answer,
-                targetLanguage as string
-              );
+              const [translatedAnswer] = await translate.translate(answer, targetLanguage as string);
               return translatedAnswer;
             })
           );
+
           return {
             ...question,
             question: translatedQuestion,
@@ -68,11 +60,7 @@ router.get("/", async (req, res):Promise<any> => {
       })
     );
 
-    const shuffledQuestions = translatedQuestions.sort(
-      () => Math.random() - 0.5
-    );
-
-    res.json(shuffledQuestions.slice(0, 10));
+    res.json(translatedQuestions.sort(() => Math.random() - 0.5).slice(0, 10));
   } catch (error) {
     console.error("Erro ao buscar questões:", error);
     res.status(500).json({ message: "Erro ao buscar questões" });
