@@ -17,10 +17,9 @@ app.use(
   })
 );
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.use(express.static("/app/frontend/build"));
 app.use(express.json());
 
 app.use(express.json());
@@ -28,8 +27,9 @@ app.use("/seed-questions", post_seed_questions);
 app.use("/questions", get_questions);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+  res.sendFile(path.resolve("/app/frontend/build/index.html"));
 });
+
 
 app.listen(port, () => {
   console.log(

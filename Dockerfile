@@ -33,4 +33,4 @@ ENV DATABASE_URL=postgresql://postgres:pkKFsgWnepGozAkHeQAilsqOLcrvGSnL@monorail
 
 WORKDIR /app/api
 
-CMD ["npx", "tsx", "data_seeding.ts", "&&", "npm", "start"]
+CMD ["npm", "start"]
