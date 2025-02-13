@@ -27,7 +27,7 @@ COPY --from=builder /app/frontend/build ./frontend/build
 
 
 ENV REACT_APP_API_URL=http://localhost:5000
-ENV DATABASE_URL=postgresql://postgres:pkKFsgWnepGozAkHeQAilsqOLcrvGSnL@postgres.railway.internal:5432/railway
+ENV DATABASE_URL=postgresql://postgres:pkKFsgWnepGozAkHeQAilsqOLcrvGSnL@monorail.proxy.rlwy.net:43147/railway
 EXPOSE 5000
 
 CMD ["node", "api/dist/index.js"]
