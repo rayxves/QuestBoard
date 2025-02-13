@@ -25,9 +25,11 @@ WORKDIR /app
 COPY --from=builder /app/api ./api
 COPY --from=builder /app/frontend/build ./frontend/build
 
+EXPOSE 5000
+EXPOSE 3000
 
 ENV REACT_APP_API_URL=http://localhost:5000
 ENV DATABASE_URL=postgresql://postgres:pkKFsgWnepGozAkHeQAilsqOLcrvGSnL@monorail.proxy.rlwy.net:43147/railway
-EXPOSE 5000
 
-CMD ["node", "api/dist/index.js"]
+
+CMD ["npm", "start"]

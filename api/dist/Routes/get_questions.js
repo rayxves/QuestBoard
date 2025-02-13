@@ -47,7 +47,7 @@ router.get("/", async (req, res) => {
     }
     catch (error) {
         console.error("Erro ao buscar questões:", error);
-        res.status(500).json({ message: "Erro ao buscar questões" });
+        res.status(500).json({ message: `Erro ao buscar questões: ${error}` });
     }
 });
 export default router;

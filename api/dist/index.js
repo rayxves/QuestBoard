@@ -14,7 +14,7 @@ app.use(cors({
 }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, "frontend/build")));
+app.use(express.static(path.join(__dirname, "../../frontend/build")));
 app.use(express.json());
 app.use(express.json());
 app.use("/seed-questions", post_seed_questions);
