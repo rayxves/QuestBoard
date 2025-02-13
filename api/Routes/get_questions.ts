@@ -63,7 +63,7 @@ router.get("/", async (req, res): Promise<any> => {
     res.json(translatedQuestions.sort(() => Math.random() - 0.5).slice(0, 10));
   } catch (error) {
     console.error("Erro ao buscar questões:", error);
-    res.status(500).json({ message: "Erro ao buscar questões" });
+    res.status(500).json({ message: `Erro ao buscar questões: ${error}` });
   }
 });
 
